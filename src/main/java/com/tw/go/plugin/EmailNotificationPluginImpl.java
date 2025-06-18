@@ -131,7 +131,7 @@ public class EmailNotificationPluginImpl implements GoPlugin {
                         "Android production release builds (.aab) are now available in the Play Console (Internal testing).\n" +
                         "Thanks!\n\nState: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"));
             }
-            body = body + "\n Build count: " pipelineLabelLocal;
+            body = body + ("\n Build count: " + pipelineLabelLocal);
 
 
             boolean matchesFilter = false;
