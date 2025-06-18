@@ -121,7 +121,12 @@ public class EmailNotificationPluginImpl implements GoPlugin {
 
             String subject = String.format("%s/%s is/has %s", pipelineName, stageName, stageState);
             String body = String.format("State: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"));
-
+            if (pipelineName.equalsIgnoreCase("Sportsbook_Android_Prod_AAB_Play_Console")) {
+                subject = "Android production release builds available in Play Console";
+                body = String.format("Hi team,\n" +
+                        "Android production release builds (.aab) are now available in the Play Console (Internal testing).\n" +
+                        "Thanks!\n\nState: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"));
+            }
             PluginSettings pluginSettings = getPluginSettings();
 
 
