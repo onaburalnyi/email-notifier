@@ -27,9 +27,8 @@ public class PluginSettings {
     private String senderPassword;
     private String receiverEmailId;
     private List<Filter> filterList;
-    private String pipelineLabel;
 
-    public PluginSettings(String smtpHost, int smtpPort, boolean tls, String senderEmailId, String smtpUsername, String senderPassword, String receiverEmailId, String filterString, String pipelineLabel) {
+    public PluginSettings(String smtpHost, int smtpPort, boolean tls, String senderEmailId, String smtpUsername, String senderPassword, String receiverEmailId, String filterString) {
         this.smtpHost = smtpHost;
         this.smtpPort = smtpPort;
         this.tls = tls;
@@ -39,7 +38,6 @@ public class PluginSettings {
         this.receiverEmailId = receiverEmailId;
         FilterConverter filterController = new FilterConverter();
         this.filterList = filterController.convertStringToFilterList(filterString);
-        this.pipelineLabel = pipelineLabel;
     }
 
     public String getSmtpHost() {
@@ -68,10 +66,6 @@ public class PluginSettings {
 
     public String getSenderEmailId() {
         return senderEmailId;
-    }
-
-    public String getPipelineLabel() {
-        return pipelineLabel;
     }
 
     public void setSenderEmailId(String senderEmailId) {
@@ -117,9 +111,6 @@ public class PluginSettings {
             return false;
         if(filterList != null ? !filterList.equals(that.filterList) : that.filterList != null)
             return false;
-        if(pipelineLabel != null ? !pipelineLabel.equals(that.pipelineLabel) : that.pipelineLabel != null)
-            return false;
-
         return true;
     }
 
@@ -132,7 +123,6 @@ public class PluginSettings {
         result = 31 * result + (senderPassword != null ? senderPassword.hashCode() : 0);
         result = 31 * result + (receiverEmailId != null ? receiverEmailId.hashCode() : 0);
         result = 31 * result + (filterList != null ? filterList.hashCode() : 0);
-        result = 31 * result + (pipelineLabel != null ? pipelineLabel.hashCode() : 0);
         return result;
     }
 

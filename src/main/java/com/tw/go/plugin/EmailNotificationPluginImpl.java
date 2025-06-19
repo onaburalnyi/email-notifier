@@ -117,22 +117,13 @@ public class EmailNotificationPluginImpl implements GoPlugin {
 
 
             String pipelineName = (String) pipelineMap.get("name");
+            String counter = (String) pipelineMap.get("counter");
             String stageName = (String) stageMap.get("name");
             String stageState = (String) stageMap.get("state");
             PluginSettings pluginSettings = getPluginSettings();
-            String pipelineLabelLocal = pluginSettings.getPipelineLabel();
-            LOGGER.info("PluginSettings getPipelineLabel = " + pipelineLabelLocal);
 
-            String subject = String.format("%s/%s is/has %s", pipelineName, stageName, stageState);
-            String body = String.format("State: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"));
-            if (pipelineName.equalsIgnoreCase("Sportsbook_Android_Prod_AAB_Play_Console")) {
-                subject = "Android production release builds available in Play Console";
-                body = String.format("Hi team,\n" +
-                        "Android production release builds (.aab) are now available in the Play Console (Internal testing).\n" +
-                        "Thanks!\n\nState: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"));
-            }
-            body = body + ("\n Build count: " + pipelineLabelLocal);
-
+            String subject = String.format("%s %s is %s", pipelineName, stageName, stageState);
+            String body = String.format("State: %s\nResult: %s\nCreate Time: %s\nLast Transition Time: %s\nCounter: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"),counter);
 
             boolean matchesFilter = false;
 
@@ -196,7 +187,6 @@ public class EmailNotificationPluginImpl implements GoPlugin {
         response.put(PLUGIN_SETTINGS_SENDER_PASSWORD, createField("Sender Password", null, false, true, "5"));
         response.put(PLUGIN_SETTINGS_RECEIVER_EMAIL_ID, createField("Receiver Email-id", null, true, false, "6"));
         response.put(PLUGIN_SETTINGS_FILTER, createField("Pipeline/Stage/Status filter", null, false, false, "7"));
-        response.put(PLUGIN_SETTINGS_GO_PIPELINE_LABEL, createField("Build counter", null, false, false, "8"));
         return renderJSON(SUCCESS_RESPONSE_CODE, response);
     }
 
@@ -260,8 +250,7 @@ public class EmailNotificationPluginImpl implements GoPlugin {
                 Boolean.parseBoolean(responseBodyMap.get(PLUGIN_SETTINGS_IS_TLS)), responseBodyMap.get(PLUGIN_SETTINGS_SENDER_EMAIL_ID),
                 responseBodyMap.get(PLUGIN_SETTINGS_SMTP_USERNAME),
                 responseBodyMap.get(PLUGIN_SETTINGS_SENDER_PASSWORD), responseBodyMap.get(PLUGIN_SETTINGS_RECEIVER_EMAIL_ID),
-                responseBodyMap.get(PLUGIN_SETTINGS_FILTER),
-                responseBodyMap.get(PLUGIN_SETTINGS_GO_PIPELINE_LABEL));
+                responseBodyMap.get(PLUGIN_SETTINGS_FILTER));
     }
 
     private boolean isEmpty(String str) {
