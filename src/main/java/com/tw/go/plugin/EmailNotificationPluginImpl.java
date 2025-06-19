@@ -118,13 +118,12 @@ public class EmailNotificationPluginImpl implements GoPlugin {
 
             String pipelineName = (String) pipelineMap.get("name");
             String counter = (String) pipelineMap.get("counter");
-            String label = (String) pipelineMap.get("label");
             String stageName = (String) stageMap.get("name");
             String stageState = (String) stageMap.get("state");
             PluginSettings pluginSettings = getPluginSettings();
 
             String subject = String.format("%s %s is %s", pipelineName, stageName, stageState);
-            String body = String.format("Hi, team\n\n" + pipelineName + " build is ready.\n\nState: %s\nResult: %s\nJob start time: %s\nJob end time: %s\nCounter: %s\nLabel: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"),counter, label);
+            String body = String.format("Hi, team\n\n" + pipelineName + " build is ready.\n\nState: %s\nResult: %s\nJob start time: %s\nJob end time: %s\nCounter: %s", stageState, stageMap.get("result"), stageMap.get("create-time"), stageMap.get("last-transition-time"),counter);
 
             boolean matchesFilter = false;
 
