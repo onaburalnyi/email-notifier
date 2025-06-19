@@ -50,7 +50,6 @@ public class EmailNotificationPluginImpl implements GoPlugin {
     public static final String PLUGIN_SETTINGS_SENDER_PASSWORD = "sender_password";
     public static final String PLUGIN_SETTINGS_RECEIVER_EMAIL_ID = "receiver_email_id";
     public static final String PLUGIN_SETTINGS_FILTER = "pipeline_stage_filter";
-    public static final String PLUGIN_SETTINGS_GO_PIPELINE_LABEL = "go_pipeline_label";
 
     public static final String PLUGIN_SETTINGS_GET_CONFIGURATION = "go.plugin-settings.get-configuration";
     public static final String PLUGIN_SETTINGS_GET_VIEW = "go.plugin-settings.get-view";
